@@ -1,0 +1,15 @@
+<mat-dialog-content class="dialog-content">
+  <button mat-stroked-button mat-dialog-close color="primary" class="close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="content">
+    <iframe
+    class="iframe"
+    [src]="url | safe"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    title="trailer movie"
+  ></iframe>
+  </div>
+</mat-dialog-content>

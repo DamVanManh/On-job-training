@@ -1,0 +1,42 @@
+<cdk-accordion-item
+  #accordionItem="cdkAccordionItem"
+  class="video"
+  role="button"
+  tabindex="0"
+>
+  <div class="header" (click)="accordionItem.toggle()">
+    <div class="header__image header__item">
+      <img
+        src="{{ video.snippet.thumbnails.medium.url }}"
+        alt="video.snippet.title"
+      />
+    </div>
+
+    <p class="header__title header__item">{{ video.snippet.title }}</p>
+    <span class="header__description">
+      Click to {{ accordionItem.expanded ? "close" : "open" }}
+    </span>
+  </div>
+  <div
+    class="body"
+    role="region"
+    [style.display]="accordionItem.expanded ? '' : 'none'"
+  >
+    <p><strong>Channel:</strong> {{ video.snippet.channelTitle }}</p>
+    <p><strong>Description:</strong> {{ video.snippet.description }}</p>
+    <p><strong>like:</strong> {{ video.statistics.likeCount }}</p>
+    <p><strong>Dislike:</strong> {{ video.statistics.dislikeCount }}</p>
+    <p><strong>View:</strong> {{ video.statistics.viewCount }}</p>
+    <p>
+      <strong>publish Time:</strong>
+      {{ video.snippet.publishTime | date: "EEEE, MMMM d, y, h:mm:ss" }}
+    </p>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="openDialog(video.id.videoId)"
+    >
+      Open Video
+    </button>
+  </div>
+</cdk-accordion-item>

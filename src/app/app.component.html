@@ -1,0 +1,173 @@
+<div class="ui-component">
+  <!-- search-setting -->
+  <div class="search-setting">
+    <button
+      matTooltip="Search setting"
+      [matTooltipPosition]="'above'"
+      mat-mini-fab
+      color="primary"
+      (click)="changeSearchSetting()"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+
+  <!-- input-field -->
+  <div class="input-field">
+    <mat-form-field class="form-field" appearance="fill">
+      <mat-label>Type to search for videos</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="searchParams.q"
+        (keyup)="onChangeSearchQ()"
+      />
+      <button
+        *ngIf="searchParams.q"
+        matSuffix
+        mat-icon-button
+        (click)="searchParams.q = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <!-- filter -->
+  <div class="filter">
+    <div class="order">
+      <button
+        mat-button
+        color="primary"
+        [matMenuTriggerFor]="order"
+        mat-stroked-button
+      >
+        <mat-icon>reorder</mat-icon>&nbsp;<span>order</span>
+      </button>
+      <mat-menu #order="matMenu">
+        <button
+          mat-menu-item
+          *ngFor="let order of orders"
+          (click)="selectOrder(order)"
+          [ngClass]="{ 'order-item-active': order === searchParams.order }"
+        >
+          {{ order }}
+        </button>
+      </mat-menu>
+    </div>
+    <div class="from">
+      <mat-form-field appearance="fill" style="width: 1px; visibility: hidden">
+        <input
+          (dateChange)="changeDateFrom($event)"
+          matInput
+          [(ngModel)]="fromDateValue"
+          [matDatepicker]="from"
+          [max]="maxDate"
+        />
+        <mat-datepicker #from>
+          <mat-datepicker-actions>
+            <button
+              mat-button
+              matDatepickerCancel
+              (click)="
+                fromDateValue = '';
+                searchParams.publishedAfter = '';
+                searchVideo()
+              "
+            >
+              Cancel
+            </button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Apply
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+      <button color="primary" mat-stroked-button (click)="from.open()">
+        From:
+      </button>
+      <span
+        >&nbsp;{{
+          searchParams.publishedAfter | date: "EEEE, MMMM d, y, h:mm:ss"
+        }}</span
+      >
+    </div>
+    <div class="to">
+      <mat-form-field appearance="fill" style="width: 1px; visibility: hidden">
+        <input
+          (dateChange)="changeDateTo($event)"
+          matInput
+          [(ngModel)]="toDateValue"
+          [matDatepicker]="to"
+          [max]="maxDate"
+        />
+        <mat-datepicker #to>
+          <mat-datepicker-actions>
+            <button
+              mat-button
+              matDatepickerCancel
+              (click)="
+                toDateValue = '';
+                searchParams.publishedBefore = '';
+                searchVideo()
+              "
+            >
+              Cancel
+            </button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Apply
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+      <button color="primary" mat-stroked-button (click)="to.open()">
+        To:
+      </button>
+      <span
+        >&nbsp;{{
+          searchParams.publishedBefore | date: "EEEE, MMMM d, y, h:mm:ss"
+        }}</span
+      >
+    </div>
+  </div>
+
+  <!-- video-search-result -->
+  <div class="video-search-result">
+    <cdk-accordion>
+      <app-video *ngFor="let video of videos" [video]="video"></app-video>
+    </cdk-accordion>
+  </div>
+
+  <!-- pagination -->
+  <div class="pagination">
+    <button
+      matTooltip="First page"
+      [matTooltipPosition]="'above'"
+      mat-stroked-button
+      color="primary"
+      (click)="goFirstPage()"
+      [disabled]="0 === currentPage"
+    >
+      <mat-icon> keyboard_double_arrow_left </mat-icon>
+    </button>
+    <button
+      mat-stroked-button
+      color="primary"
+      *ngFor="let page of pages; let i = index"
+      (click)="goToPage(page)"
+      [disabled]="page === currentPage"
+    >
+      {{ i + 1 }}
+    </button>
+    <button
+      matTooltip="Last page"
+      [matTooltipPosition]="'above'"
+      mat-stroked-button
+      color="primary"
+      (click)="goLastPage()"
+      [disabled]="pageTotal - 1 === currentPage"
+    >
+      <mat-icon> keyboard_double_arrow_right </mat-icon>
+    </button>
+  </div>
+</div>

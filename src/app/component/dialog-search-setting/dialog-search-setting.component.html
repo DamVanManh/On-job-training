@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Search Setting</h2>
+<div mat-dialog-content class="search-setting-content">
+  <p>Number per page</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Number per page</mat-label>
+    <input matInput [(ngModel)]="data.numberPerPage" />
+  </mat-form-field>
+  <p>Search debounce</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Search debounce</mat-label>
+    <input matInput [(ngModel)]="data.searchDebounce" />
+  </mat-form-field>
+  <p>API key</p>
+  <mat-form-field appearance="fill">
+    <mat-label>API key</mat-label>
+    <input matInput [(ngModel)]="data.apiKey" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    color="primary"
+    mat-stroked-button
+  >
+    Ok
+  </button>
+</div>
