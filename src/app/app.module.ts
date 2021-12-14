@@ -10,9 +10,12 @@ import { VideoComponent } from './video/video.component';
 import { DialogVideoComponent } from './component/dialog-video/dialog-video.component';
 import { SafePipe } from './shared/safe.pipe';
 import { DialogSearchSettingComponent } from './component/dialog-search-setting/dialog-search-setting.component';
+import { AcomComponent } from './acom/acom.component';
+import { BcomComponent } from './bcom/bcom.component';
+import { CcomComponent } from './ccom/ccom.component';
 
 @NgModule({
-  declarations: [AppComponent, VideoComponent, DialogVideoComponent, SafePipe, DialogSearchSettingComponent],
+  declarations: [AppComponent, VideoComponent, DialogVideoComponent, SafePipe, DialogSearchSettingComponent, AcomComponent, BcomComponent, CcomComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
